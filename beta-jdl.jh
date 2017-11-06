@@ -1,6 +1,5 @@
+//CourtCaseHeaderGroup
 entity MncisCase {
-  //List<CaseStatus> caseStatus;
-
 	caseCountyNumber BigDecimal,
 	allCountsDisposed Boolean,
 	caseIsConfidential Boolean,
@@ -19,13 +18,74 @@ entity MncisCase {
 	caseLocationText CourtLocationTextType
 }
 
+//	courtCaseHeaderGroup	CourtCaseHeaderGroup
+//	courtCaseEvent	CourtCaseEvent
+//	casePartyRelation	CasePartyRelation
+//	attorney	Attorney
+//	caseProsecutor	CaseProsecutor
+//	subjectParties	SubjectParties
+//	partyToTheAction	PartyToTheAction
+//	victim	Victim
+//	witness	Witness
+//	hearingTrialSetting	HearingTrialSetting
+//	charge	Charge
+//  //TODO - should these be linked to charges?
+//	chargeDispositions	ChargeDispositions
+//
+//	courtDecisions	CourtDecisions
+//	interimConditionsOrder	InterimConditionsOrder
+//	juvenileInterimPlacementOrder	JuvenileInterimPlacementOrder
+//	warrant	Warrant
+//	financialSummary	FinancialSummary
+//	financialDetail	FinancialDetail
+//	bond	Bond
+//	citationDocument	CitationDocument
+
+relationship OneToMany {
+	MncisCase{caseStatus} to CaseStatus,
+	MncisCase{courtCaseEvent} to CourtCaseEvent,
+	MncisCase{hearingTrialSetting} to HearingTrialSetting,
+	MncisCase{charge} to Charge,
+	MncisCase{courtDecisions} to CourtDecisions,
+	MncisCase{interimConditionsOrder} to InterimConditionsOrder,
+	MncisCase{juvenileInterimPlacementOrder} to JuvenileInterimPlacementOrder,
+	MncisCase{financialSummary} to FinancialDetail,
+	MncisCase{bond} to Bond,
+	MncisCase{citationDocument} to CitationDocument
+}
+
+relationship ManyToMany {
+
+	MncisCase{casePartyRelation} to CasePartyRelation,
+	MncisCase{attorney} to Attorney,
+	MncisCase{caseProsecutor} to CaseProsecutor,
+	MncisCase{subjectParties} to SubjectParties,
+	MncisCase{partyToTheAction} to PartyToTheAction,
+	MncisCase{victim} to Victim,
+	MncisCase{witness} to Witness
+
+	//	attorney	Attorney
+	//	caseProsecutor	CaseProsecutor
+	//	subjectParties	SubjectParties
+	//	partyToTheAction	PartyToTheAction
+	//	victim	Victim
+	//	witness	Witness
+}
+
+entity CourtCaseEvent {
+}
+entity CaseStatus {
+	caseStatusText String,
+	caseStatusDate ZonedDateTime,
+	caseStatusComment String,
+	currentStatusIndicator Boolean
+}
+
 entity Attorney {
 }
 
 entity Bond {
-
 }
-
 
 enum BaseCaseTypeTextType {
 	ADOPTION,
@@ -90,183 +150,127 @@ enum CaseCategoryCodeTextType {
 }
 
 enum CourtLocationTextType {
-AITKIN_COUNTY,
-ANOKA_COUNTY,
-BECKER_COUNTY,
-BELTRAMI_COUNTY,
-BENTON_COUNTY,
-BIG_STONE_COUNTY,
-BLUE_EARTH_COUNTY,
-BROWN_COUNTY,
-CARLTON_COUNTY,
-CARVER_COUNTY,
-CASS_COUNTY,
-CHIPPEWA_COUNTY,
-CHISAGO_COUNTY,
-CLAY_COUNTY,
-CLEARWATER_COUNTY,
-COOK_COUNTY,
-COTTONWOOD_COUNTY,
-CROW_WING_COUNTY,
-DAKOTA_APPLE_VALLEY,
-DAKOTA_COUNTY,
-DAKOTA_HASTINGS_CRIMINAL,
-DAKOTA_HASTINGS_NON_CRIMINAL,
-DAKOTA_WEST_ST_PAUL,
-DODGE_COUNTY,
-DOUGLAS_COUNTY,
-FARIBAULT_COUNTY,
-FILLMORE_COUNTY,
-FREEBORN_COUNTY,
-GOODHUE_COUNTY,
-GRANT_COUNTY,
-HENNEPIN_CIVIL,
-HENNEPIN_COUNTY,
-HENNEPIN_CRIMINAL,
-HENNEPIN_CRIMINAL_BROOKDALE,
-HENNEPIN_CRIMINAL_DOWNTOWN,
-HENNEPIN_CRIMINAL_RIDGEDALE,
-HENNEPIN_CRIMINAL_SOUTHDALE,
-HENNEPIN_EXAMINER_OF_TITLES,
-HENNEPIN_FAMILY,
-HENNEPIN_HOUSING,
-HENNEPIN_JUVENILE,
-HENNEPIN_PROBATE_MENTAL_HEALTH,
-HENNEPIN_VIOLATIONS_BUREAU,
-HOUSTON_COUNTY,
-HUBBARD_COUNTY,
-ISANTI_COUNTY,
-ITASCA_COUNTY,
-JACKSON_COUNTY,
-KANABEC_COUNTY,
-KANDIYOHI_COUNTY,
-KITTSON_COUNTY,
-KOOCHICHING_COUNTY,
-LAC_QUI_PARLE_COUNTY,
-LAKE_COUNTY,
-LAKE_OF_THE_WOODS_COUNTY,
-LE_SUEUR_COUNTY,
-LINCOLN_COUNTY,
-LYON_COUNTY,
-MAHNOMEN_COUNTY,
-MARSHALL_COUNTY,
-MARTIN_COUNTY,
-MC_LEOD_COUNTY,
-MEEKER_COUNTY,
-MILLE_LACS_COUNTY,
-MORRISON_COUNTY,
-MOWER_COUNTY,
-MURRAY_COUNTY,
-NICOLLET_COUNTY,
-NOBLES_COUNTY,
-NORMAN_COUNTY,
-OLMSTED_COUNTY,
-OTTER_TAIL_COUNTY,
-PENNINGTON_COUNTY,
-PINE_COUNTY,
-PIPESTONE_COUNTY,
-POLK_COUNTY,
-POPE_COUNTY,
-RAMSEY_CIVIL,
-RAMSEY_CIVIL_COURTS,
-RAMSEY_COUNTY,
-RAMSEY_CRIMINAL_COURTS,
-RAMSEY_CRIMINAL_DOWNTOWN,
-RAMSEY_CRIMINAL_LAW_ENFORCEMENT_CENTER,
-RAMSEY_CRIMINAL_SUBURBAN,
-RAMSEY_CRIMINAL_VIOLATIONS_BUREAU,
-RAMSEY_DMA_HARASSMENT,
-RAMSEY_FAMILY_MAIN,
-RAMSEY_FAMILY_SATELLITE,
-RAMSEY_HOUSING_CONCILIATION,
-RAMSEY_JUVENILE,
-RAMSEY_PROBATE_MENTAL_HEALTH,
-RAMSEY_SPECIAL_COURTS,
-RED_LAKE_COUNTY,
-REDWOOD_COUNTY,
-RENVILLE_COUNTY,
-RICE_COUNTY,
-ROCK_COUNTY,
-ROSEAU_COUNTY,
-SCOTT_COUNTY,
-SHERBURNE_COUNTY,
-SIBLEY_COUNTY,
-ST_LOUIS_DULUTH,
-ST_LOUIS_HIBBING,
-ST_LOUIS_VIRGINIA,
-STEARNS_COUNTY,
-STEELE_COUNTY,
-STEVENS_COUNTY,
-SWIFT_COUNTY,
-TODD_COUNTY,
-TRAVERSE_COUNTY,
-WABASHA_COUNTY,
-WADENA_COUNTY,
-WASECA_COUNTY,
-WASHINGTON_COTTAGE_GROVE,
-WASHINGTON_COUNTY,
-WASHINGTON_STILLWATER,
-WATONWAN_COUNTY,
-WILKIN_COUNTY,
-WINONA_COUNTY,
-WRIGHT_COUNTY,
-YELLOW_MEDICINE_COUNTY
-}
-
-entity Motion {
-	date ZonedDateTime,
-    orderDate ZonedDateTime,
-    type MotionType,
-    outcome MotionOutcome,
-    whose MotionWhose
-}
-
-entity InterimCondition {
-
-}
-
-entity CaseParticipant {
-
-}
-
-entity Appearance {
-}
-
-entity Sentence {
-
-}
-
-entity InterimCondition {
-
-}
-
-entity Charge {
-
-}
-
-entity Warrant {
-
-}
-
-enum MotionType {
-	SOMETYPE
-}
-
-enum MotionOutcome {
-	SOMEOUTCOME
-}
-
-enum MotionWhose {
-	SOMEWHOSE
-}
-
-entity CaseIdentifier {
-	caseIdType CaseIdType,
-    identifier String,
-    issuedBy String,
-    status String,
-    dateIssued ZonedDateTime,
-    dateExpires ZonedDateTime
+	AITKIN_COUNTY,
+	ANOKA_COUNTY,
+	BECKER_COUNTY,
+	BELTRAMI_COUNTY,
+	BENTON_COUNTY,
+	BIG_STONE_COUNTY,
+	BLUE_EARTH_COUNTY,
+	BROWN_COUNTY,
+	CARLTON_COUNTY,
+	CARVER_COUNTY,
+	CASS_COUNTY,
+	CHIPPEWA_COUNTY,
+	CHISAGO_COUNTY,
+	CLAY_COUNTY,
+	CLEARWATER_COUNTY,
+	COOK_COUNTY,
+	COTTONWOOD_COUNTY,
+	CROW_WING_COUNTY,
+	DAKOTA_APPLE_VALLEY,
+	DAKOTA_COUNTY,
+	DAKOTA_HASTINGS_CRIMINAL,
+	DAKOTA_HASTINGS_NON_CRIMINAL,
+	DAKOTA_WEST_ST_PAUL,
+	DODGE_COUNTY,
+	DOUGLAS_COUNTY,
+	FARIBAULT_COUNTY,
+	FILLMORE_COUNTY,
+	FREEBORN_COUNTY,
+	GOODHUE_COUNTY,
+	GRANT_COUNTY,
+	HENNEPIN_CIVIL,
+	HENNEPIN_COUNTY,
+	HENNEPIN_CRIMINAL,
+	HENNEPIN_CRIMINAL_BROOKDALE,
+	HENNEPIN_CRIMINAL_DOWNTOWN,
+	HENNEPIN_CRIMINAL_RIDGEDALE,
+	HENNEPIN_CRIMINAL_SOUTHDALE,
+	HENNEPIN_EXAMINER_OF_TITLES,
+	HENNEPIN_FAMILY,
+	HENNEPIN_HOUSING,
+	HENNEPIN_JUVENILE,
+	HENNEPIN_PROBATE_MENTAL_HEALTH,
+	HENNEPIN_VIOLATIONS_BUREAU,
+	HOUSTON_COUNTY,
+	HUBBARD_COUNTY,
+	ISANTI_COUNTY,
+	ITASCA_COUNTY,
+	JACKSON_COUNTY,
+	KANABEC_COUNTY,
+	KANDIYOHI_COUNTY,
+	KITTSON_COUNTY,
+	KOOCHICHING_COUNTY,
+	LAC_QUI_PARLE_COUNTY,
+	LAKE_COUNTY,
+	LAKE_OF_THE_WOODS_COUNTY,
+	LE_SUEUR_COUNTY,
+	LINCOLN_COUNTY,
+	LYON_COUNTY,
+	MAHNOMEN_COUNTY,
+	MARSHALL_COUNTY,
+	MARTIN_COUNTY,
+	MC_LEOD_COUNTY,
+	MEEKER_COUNTY,
+	MILLE_LACS_COUNTY,
+	MORRISON_COUNTY,
+	MOWER_COUNTY,
+	MURRAY_COUNTY,
+	NICOLLET_COUNTY,
+	NOBLES_COUNTY,
+	NORMAN_COUNTY,
+	OLMSTED_COUNTY,
+	OTTER_TAIL_COUNTY,
+	PENNINGTON_COUNTY,
+	PINE_COUNTY,
+	PIPESTONE_COUNTY,
+	POLK_COUNTY,
+	POPE_COUNTY,
+	RAMSEY_CIVIL,
+	RAMSEY_CIVIL_COURTS,
+	RAMSEY_COUNTY,
+	RAMSEY_CRIMINAL_COURTS,
+	RAMSEY_CRIMINAL_DOWNTOWN,
+	RAMSEY_CRIMINAL_LAW_ENFORCEMENT_CENTER,
+	RAMSEY_CRIMINAL_SUBURBAN,
+	RAMSEY_CRIMINAL_VIOLATIONS_BUREAU,
+	RAMSEY_DMA_HARASSMENT,
+	RAMSEY_FAMILY_MAIN,
+	RAMSEY_FAMILY_SATELLITE,
+	RAMSEY_HOUSING_CONCILIATION,
+	RAMSEY_JUVENILE,
+	RAMSEY_PROBATE_MENTAL_HEALTH,
+	RAMSEY_SPECIAL_COURTS,
+	RED_LAKE_COUNTY,
+	REDWOOD_COUNTY,
+	RENVILLE_COUNTY,
+	RICE_COUNTY,
+	ROCK_COUNTY,
+	ROSEAU_COUNTY,
+	SCOTT_COUNTY,
+	SHERBURNE_COUNTY,
+	SIBLEY_COUNTY,
+	ST_LOUIS_DULUTH,
+	ST_LOUIS_HIBBING,
+	ST_LOUIS_VIRGINIA,
+	STEARNS_COUNTY,
+	STEELE_COUNTY,
+	STEVENS_COUNTY,
+	SWIFT_COUNTY,
+	TODD_COUNTY,
+	TRAVERSE_COUNTY,
+	WABASHA_COUNTY,
+	WADENA_COUNTY,
+	WASECA_COUNTY,
+	WASHINGTON_COTTAGE_GROVE,
+	WASHINGTON_COUNTY,
+	WASHINGTON_STILLWATER,
+	WATONWAN_COUNTY,
+	WILKIN_COUNTY,
+	WINONA_COUNTY,
+	WRIGHT_COUNTY,
+	YELLOW_MEDICINE_COUNTY
 }
 
 enum CaseIdType {
@@ -635,32 +639,7 @@ VBS
 }
 
 
-enum County {
-    HENNEPIN, DAKOTA, RAMSEY
-}
-
-enum CourtType {
-    FAMILY
-}
-
-enum MncisCaseType {
-    CRIMINAL
-}
-
-enum DispositionCode {
-    OUTSIDEATTORNEY
-}
-
-enum HennepinCountyCourt {
-    BROOKDALE, MINNEAPOLIS
-}
-
-relationship OneToMany {
-	MncisCase{motion} to Motion,
-	MncisCase{caseIdentifier} to CaseIdentifier
-}
-
-paginate MncisCase, Motion with infinite-scroll
+paginate MncisCase, CourtCaseEvent with infinite-scroll
 paginate CaseIdentifier with pagination
 
 dto * with mapstruct
