@@ -18,6 +18,148 @@ entity MncisCase {
 	caseLocationText CourtLocationTextType
 }
 
+
+enum HearingTrialSettingStatus{
+  HELD,
+  RESCHEDULED,
+  CANCELLED
+}
+
+//hearingTrialSetting
+//HearingTrialSettingType
+entity HearingTrialSetting {
+  hearingTrialSettingStatus HearingTrialSettingStatus,
+  courtName CourtLocationCodeTextType,
+  judicialAgencyORI String,
+	//TODO
+  hearingTypeText HearingTypeCodeTextType,
+  hearingKey BigDecimal
+}
+
+enum CourtLocationCodeTextType {
+  AITKIN_COUNTY,
+  ANOKA_COUNTY,
+  BECKER_COUNTY,
+  BELTRAMI_COUNTY,
+  BENTON_COUNTY,
+  BIG_STONE_COUNTY,
+  BLUE_EARTH_COUNTY,
+  BROWN_COUNTY,
+  CARLTON_COUNTY,
+  CARVER_COUNTY,
+  CASS_COUNTY,
+  CHIPPEWA_COUNTY,
+  CHISAGO_COUNTY,
+  CLAY_COUNTY,
+  CLEARWATER_COUNTY,
+  COOK_COUNTY,
+  COTTONWOOD_COUNTY,
+  CROW_WING_COUNTY,
+  DAKOTA_APPLE_VALLEY,
+  DAKOTA_COUNTY,
+  DAKOTA_HASTINGS_CRIMINAL,
+  DAKOTA_HASTINGS_NON_CRIMINAL,
+  DAKOTA_WEST_ST_PAUL,
+  DODGE_COUNTY,
+  DOUGLAS_COUNTY,
+  FARIBAULT_COUNTY,
+  FILLMORE_COUNTY,
+  FREEBORN_COUNTY,
+  GOODHUE_COUNTY,
+  GRANT_COUNTY,
+  HENNEPIN_CIVIL,
+  HENNEPIN_COUNTY,
+  HENNEPIN_CRIMINAL_BROOKDALE,
+  HENNEPIN_CRIMINAL_DOWNTOWN,
+  HENNEPIN_CRIMINAL_RIDGEDALE,
+  HENNEPIN_CRIMINAL_SOUTHDALE,
+  HENNEPIN_CRIMINAL,
+  HENNEPIN_EXAMINER_OF_TITLES,
+  HENNEPIN_FAMILY,
+  HENNEPIN_HOUSING,
+  HENNEPIN_JUVENILE,
+  HENNEPIN_PROBATE_MENTAL_HEALTH,
+  HENNEPIN_VIOLATIONS_BUREAU,
+  HOUSTON_COUNTY,
+  HUBBARD_COUNTY,
+  ISANTI_COUNTY,
+  ITASCA_COUNTY,
+  JACKSON_COUNTY,
+  KANABEC_COUNTY,
+  KANDIYOHI_COUNTY,
+  KITTSON_COUNTY,
+  KOOCHICHING_COUNTY,
+  LAC_QUI_PARLE_COUNTY,
+  LAKE_COUNTY,
+  LAKE_OF_THE_WOODS_COUNTY,
+  LE_SUEUR_COUNTY,
+  LINCOLN_COUNTY,
+  LYON_COUNTY,
+  MAHNOMEN_COUNTY,
+  MARSHALL_COUNTY,
+  MARTIN_COUNTY,
+  MC_LEOD_COUNTY,
+  MEEKER_COUNTY,
+  MILLE_LACS_COUNTY,
+  MORRISON_COUNTY,
+  MOWER_COUNTY,
+  MURRAY_COUNTY,
+  NICOLLET_COUNTY,
+  NOBLES_COUNTY,
+  NORMAN_COUNTY,
+  OLMSTED_COUNTY,
+  OTTER_TAIL_COUNTY,
+  PENNINGTON_COUNTY,
+  PINE_COUNTY,
+  PIPESTONE_COUNTY,
+  POLK_COUNTY,
+  POPE_COUNTY,
+  RAMSEY_CIVIL_COURTS,
+  RAMSEY_CIVIL,
+  RAMSEY_COUNTY,
+  RAMSEY_CRIMINAL_COURTS,
+  RAMSEY_CRIMINAL_DOWNTOWN,
+  RAMSEY_CRIMINAL_LAW_ENFORCEMENT_CENTER,
+  RAMSEY_CRIMINAL_SUBURBAN,
+  RAMSEY_CRIMINAL_VIOLATIONS_BUREAU,
+  RAMSEY_DMA_HARASSMENT,
+  RAMSEY_FAMILY_MAIN,
+  RAMSEY_FAMILY_SATELLITE,
+  RAMSEY_HOUSING_CONCILIATION,
+  RAMSEY_JUVENILE,
+  RAMSEY_PROBATE_MENTAL_HEALTH,
+  RAMSEY_SPECIAL_COURTS,
+  RED_LAKE_COUNTY,
+  REDWOOD_COUNTY,
+  RENVILLE_COUNTY,
+  RICE_COUNTY,
+  ROCK_COUNTY,
+  ROSEAU_COUNTY,
+  SCOTT_COUNTY,
+  SHERBURNE_COUNTY,
+  SIBLEY_COUNTY,
+  ST_LOUIS_DULUTH,
+  ST_LOUIS_HIBBING,
+  ST_LOUIS_VIRGINIA,
+  STEARNS_COUNTY,
+  STEELE_COUNTY,
+  STEVENS_COUNTY,
+  SWIFT_COUNTY,
+  TODD_COUNTY,
+  TRAVERSE_COUNTY,
+  WABASHA_COUNTY,
+  WADENA_COUNTY,
+  WASECA_COUNTY,
+  WASHINGTON_COTTAGE_GROVE,
+  WASHINGTON_COUNTY,
+  WASHINGTON_STILLWATER,
+  WATONWAN_COUNTY,
+  WILKIN_COUNTY,
+  WINONA_COUNTY,
+  WRIGHT_COUNTY,
+  YELLOW_MEDICINE_COUNTY
+}
+
 //	courtCaseHeaderGroup	CourtCaseHeaderGroup
 //	courtCaseEvent	CourtCaseEvent
 //	casePartyRelation	CasePartyRelation
@@ -52,6 +194,100 @@ relationship OneToMany {
 	MncisCase{financialSummary} to FinancialDetail,
 	MncisCase{bond} to Bond,
 	MncisCase{citationDocument} to CitationDocument
+}
+
+//CaseGetChargeType
+entity Charge {
+	chargeSequenceID String,
+	chargeFiledDate ZonedDateTime,
+	offenseID String,
+	offenseCite String,
+	offenseDescriptionText String,
+	offenseDate ZonedDateTime,
+	offenseTime ZonedDateTime,
+	offenseDateEnd ZonedDateTime,
+	offenseTimeEnd ZonedDateTime,
+	offenseDatesOnOrAbout Boolean,
+	offenseTimesAtOrAbout Boolean,
+	offenseLocationText String,
+	offenseOwnerText String,
+	offenseTypeText String,
+	//OffenseSeverityLevelTypeCodeTextType -> OffenseSeverityLevelType
+	severityLevelText OffenseSeverityLevelType,
+	//GeneralOffenseCodeTextTypeCodeTextType -> GeneralOffenseCodeType
+	generalOffenseCodeText GeneralOffenseCodeType,
+	minnesotaOffenseCode String,
+	chargeLegalDescriptionText String,
+	predatoryOffenderRegistrationRequiredIndicator Boolean,
+	targetedMisdemeanorIndicator Boolean,
+	prosecutingAgencyORI String,
+	animalsOverLimitCount BigDecimal,
+	reportToDPSIndicator Boolean,
+	reportToDNRIndicator Boolean,
+	chargeSubjectReference BigInteger,
+	chargeKey BigDecimal,
+	chargeVersionKey BigDecimal
+}
+
+relationship OneToOne {
+	Charge{vehicle} to CaseGetVehicleType,
+	Charge{accidentDamageText} to CitationAccidentTypeCodeTextType,
+	Charge{speeding} to SpeedingType,
+	Charge{communityOfOffenseText} to CommunityOfOffenseCodeTextType,
+	Charge{vehicleOverweightMeasure} to VehicleOverweightMeasureType,
+	Charge{bloodAlcoholConcentration} to BloodAlcoholConcentrationType,
+	Charge{chargePlea} to PleaType,
+	Charge{chargeAmended} to ChargeAmended,
+	Charge{arrest} to CaseGetChargeTypeArrest,
+	Charge{report} to CaseGetChargeTypeReport
+}
+
+relationship OneToMany {
+	Charge{trialDemand} to TrialDemand,
+	Charge{chargeStatuteSupplemental} to CaseGetChargeTypeChargeStatuteSupplemental
+
+
+}
+
+
+
+enum OffenseSeverityLevelType {
+  CONVERTED_OFFENSE_LEVEL_NOT_AVAILABLE,
+  FELONY,
+  GROSS_MISDEMEANOR,
+  JUVENILE_PETTY_OFFENSE,
+  JUVENILE_TRAFFIC_OFFENSE,
+  MISDEMEANOR,
+  NO_LEVEL,
+  PETTY_MISDEMEANOR
+}
+
+enum GeneralOffenseCodeType {
+  ACCESSORY_AFTER_THE_FACT_GOC,
+  ACCESSORY_BEFORE_THE_FACT_GOC,
+  AID_ABET_GOC,
+  ASSAULT_TO_COMMIT_GOC,
+  ATTEMPT_TO_COMMIT_GOC,
+  CONSPIRACY_TO_COMMIT_GOC,
+  FACILITATION_OF_GOC,
+  NOT_APPLICABLE_GOC,
+  SOLICITATION_OF_GOC,
+  THREAT_TO_COMMIT_GOC
+}
+
+entity CourtCaseEvent {
+	//TODO
+  caseEventText CaseEventTypeCodeTextType,
+  caseEventDate ZonedDateTime,
+  caseEventTime ZonedDateTime,
+	//TODO
+  caseEventJudge JudicialOfficialType,
+  caseEventDueDate ZonedDateTime,
+  caseEventCompletedDate ZonedDateTime,
+  caseEventCommentText String,
+	//TODO
+  //partyReference List<PartyReferenceType>,
+  courtCaseEventKey BigDecimal
 }
 
 relationship ManyToMany {
